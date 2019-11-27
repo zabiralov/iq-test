@@ -1,0 +1,27 @@
+---
+
+- ping:
+
+- name: create user for running minio process
+  user:
+    name: "{{ minio.user }}"
+    comment: Minio User
+    shell: /sbin/nologin
+    home: "{{ minio.workdir }}"
+    system: yes
+    create_home: yes
+
+
+- name: download minio binary
+  get_url:
+    url: "{{ minio.url }}"
+    dest: "{{ minio.binary }}"
+    checksum: "{{ minio.sum }}"
+
+
+- name: set file permissions for minio binary
+  file:
+    dest: "{{ minio.binary }}"
+    owner: "{{ minio.user }}"
+    group: "{{ minio.user }}"
+    mode: '0755'

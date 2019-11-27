@@ -1,1 +1,22 @@
 ---
+
+all:
+  vars:
+    ansible_user: vagrant
+    minio:
+      url: "https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2019-10-12T01-39-57Z"
+      sum: "sha256:42afc5da93e28341fd11a6491b57800fbfc53210ad156a2330afb09c9d71644f"
+      binary: /usr/local/bin/minio
+      workdir: /var/lib/minio
+      datadir: /srv/minio/
+      user: minio
+      tenants:
+        - 9000
+        - 9001
+
+
+minio:
+  hosts:
+    192.168.150.11:
+    # 192.168.150.12:
+    # 192.168.150.13:

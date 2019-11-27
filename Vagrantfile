@@ -1,10 +1,11 @@
 IMAGE = "ubuntu/xenial64"
 NODES = 6
-NETWORK = "192.168.150."
+NETWORK = "192.168.150.1"
 NETMASK = "255.255.255.0"
 DOMAIN = "example.com"
 CPUS = 1
 MEMORY = 512
+PUBKEY = File.read("#{Dir.home}/.ssh/id_rsa.pub")
 
 Vagrant.configure("2") do |config|
 
@@ -12,6 +13,8 @@ Vagrant.configure("2") do |config|
     vb.memory = MEMORY
     vb.cpus = CPUS
   end
+
+  config.vm.provision "copy ssh public key", type: "shell", inline: "echo \"#{PUBKEY}\" >> /home/vagrant/.ssh/authorized_keys"
 
   (1..NODES).each do |i|
     
