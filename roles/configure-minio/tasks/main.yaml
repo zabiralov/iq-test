@@ -1,0 +1,32 @@
+---
+
+- ping:
+
+
+- name: generate tenant configuration file
+  template:
+    dest: "/etc/default/minio-{{ item.value.name }}"
+    src: "minio.default.j2"
+    owner: root
+    group: root
+    mode: '0640'
+  with_dict: "{{ minio.tenants }}"
+
+
+- name: generate tenant service file
+  template:
+    dest: "/etc/systemd/system/minio-{{ item.value.name }}.service"
+    src: "minio.service.j2"
+    owner: root
+    group: root
+    mode: '0640'
+  with_dict: "{{ minio.tenants }}"
+
+
+- name: enable and start minio tenats
+  systemd:
+    name: "minio-{{ item.value.name }}"
+    state: started
+    enabled: "{{ item.value.enabled }}"
+    daemon_reload: yes
+  with_dict: "{{ minio.tenants }}"

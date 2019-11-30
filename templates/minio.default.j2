@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+
+MINIO_OPTS="--address 127.0.0.1:{{ item.value.port }}"
+MINIO_VOLUMES="{{ item.value.datadir }}"

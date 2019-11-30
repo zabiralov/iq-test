@@ -8,15 +8,27 @@ all:
       sum: "sha256:42afc5da93e28341fd11a6491b57800fbfc53210ad156a2330afb09c9d71644f"
       binary: /usr/local/bin/minio
       workdir: /var/lib/minio
-      datadir: /srv/minio/
       user: minio
       tenants:
-        - 9000
-        - 9001
+        one:
+          name: one
+          port: 9000
+          datadir: /srv/minio/one
+          config: "/etc/default/minio-one"
+          enabled: yes
+        two:
+          name: two
+          port: 9001
+          datadir: /srv/minio/two
+          config: "/etc/default/minio-two"
+          enabled: yes
 
 
 minio:
   hosts:
     192.168.150.11:
-    # 192.168.150.12:
-    # 192.168.150.13:
+    192.168.150.12:
+    192.168.150.13:
+    192.168.150.14:
+    192.168.150.15:
+    192.168.150.16:

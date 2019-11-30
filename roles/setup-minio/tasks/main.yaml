@@ -2,6 +2,7 @@
 
 - ping:
 
+
 - name: create user for running minio process
   user:
     name: "{{ minio.user }}"
@@ -25,3 +26,13 @@
     owner: "{{ minio.user }}"
     group: "{{ minio.user }}"
     mode: '0755'
+
+
+- name: create data directories
+  file:
+    dest: "{{ item.value.datadir }}"
+    owner: "{{ minio.user }}"
+    group: "{{ minio.user }}"
+    mode: '0750'
+    state: directory
+  with_dict: "{{ minio.tenants }}"

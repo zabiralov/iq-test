@@ -2,5 +2,7 @@
 
 - hosts: minio
   become: yes
+  gather_facts: no
   roles:
     - role: 'roles/setup-minio'
+    - role: 'roles/configure-minio'
