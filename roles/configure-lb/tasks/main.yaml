@@ -1,0 +1,21 @@
+---
+
+- ping:
+
+
+- name: generate nginx config
+  template:
+    dest: /etc/nginx/nginx.conf
+    src: nginx.conf.j2
+    owner: root
+    group: root
+    mode: '0640'
+
+
+# - name: generate keepalived config
+#   template:
+#     dest: /etc/keepalived/keepalived.conf
+#     src: keepalived.conf.j2
+#     owner: root
+#     group: root
+#     mode: '0640'

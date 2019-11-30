@@ -1,0 +1,13 @@
+---
+
+- ping:
+
+
+- name: install nginx and keepalived
+  apt:
+    name:
+      - nginx
+      - keepalived
+    state: present
+    update_cache: yes
+    install_recommends: no

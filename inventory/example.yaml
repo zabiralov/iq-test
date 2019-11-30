@@ -4,6 +4,7 @@ all:
   vars:
     ansible_user: vagrant
     minio:
+      domain: "minio.example.com"
       url: "https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2019-10-12T01-39-57Z"
       sum: "sha256:42afc5da93e28341fd11a6491b57800fbfc53210ad156a2330afb09c9d71644f"
       binary: /usr/local/bin/minio
@@ -23,8 +24,7 @@ all:
           config: "/etc/default/minio-two"
           enabled: yes
 
-
-minio:
+s3:
   hosts:
     192.168.150.11:
     192.168.150.12:
@@ -32,3 +32,9 @@ minio:
     192.168.150.14:
     192.168.150.15:
     192.168.150.16:
+
+lb:
+  hosts:
+    192.168.150.21:
+    192.168.150.22:
+    192.168.150.23:

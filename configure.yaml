@@ -4,13 +4,13 @@
   become: yes
   gather_facts: no
   roles:
-    - role: 'roles/setup-s3'
     - role: 'roles/configure-s3'
+      when: s3 is defined
 
 
 - hosts: lb
   become: yes
   gather_facts: yes
   roles:
-    - role: 'roles/setup-lb'
     - role: 'roles/configure-lb'
+      when: lb is defined
