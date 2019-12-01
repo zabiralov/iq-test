@@ -5,6 +5,8 @@
   gather_facts: no
   roles:
     - role: 'roles/setup-s3'
+      when: s3 is defined
+
 
 
 - hosts: lb
@@ -12,3 +14,4 @@
   gather_facts: yes
   roles:
     - role: 'roles/setup-lb'
+      when: lb is defined
