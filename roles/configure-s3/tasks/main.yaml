@@ -23,10 +23,10 @@
   with_dict: "{{ minio.tenants }}"
 
 
-- name: enable and start minio tenats
+- name: enable and restart minio tenats
   systemd:
     name: "minio-{{ item.value.name }}"
-    state: started
+    state: restarted
     enabled: "{{ item.value.enabled }}"
     daemon_reload: yes
   with_dict: "{{ minio.tenants }}"

@@ -2,6 +2,16 @@
 
 - ping:
 
+# - name: generate keepalived config
+#   template:
+#     dest: /etc/keepalived/keepalived.conf
+#     src: keepalived.conf.j2
+#     owner: root
+#     group: root
+#     mode: '0640'
+
+
+
 
 - name: generate nginx config
   template:
@@ -12,10 +22,9 @@
     mode: '0640'
 
 
-# - name: generate keepalived config
-#   template:
-#     dest: /etc/keepalived/keepalived.conf
-#     src: keepalived.conf.j2
-#     owner: root
-#     group: root
-#     mode: '0640'
+- name: enable and restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

@@ -3,6 +3,9 @@
 all:
   vars:
     ansible_user: vagrant
+    ports:
+      - 9000
+      - 9001
     minio:
       domain: "minio.example.com"
       url: "https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2019-10-12T01-39-57Z"
