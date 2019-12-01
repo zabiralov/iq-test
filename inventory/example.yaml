@@ -43,6 +43,11 @@ lb:
       status_allow_from:
         - "127.0.0.1"
     keepalived:
+      nginx_status:
+        interval: 5
+        timeout: 5
+        rise: 2
+        fall: 2
       vrrp_instances:
         a:
           name: a

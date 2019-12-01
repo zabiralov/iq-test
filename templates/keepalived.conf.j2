@@ -7,6 +7,15 @@ global_defs {
     checker_no_swap
 }
 
+vrrp_script nginx_status {
+    script "/usr/bin/curl -sf http://{{ nginx.status_socket }}/status"
+    interval {{ keepalived.nginx_status.interval }}
+    timeout {{ keepalived.nginx_status.timeout }}
+    rise {{ keepalived.nginx_status.rise }}
+    fall {{ keepalived.nginx_status.fall }}
+}
+
+
 {% for i in keepalived.vrrp_instances|dict2items %}
 vrrp_instance {{ i.value.name }} {
     interface {{ i.value.interface }}
@@ -25,6 +34,9 @@ priority {{ keepalived_host.vrrp_instances.c.priority }}
     }
     virtual_ipaddress {
         {{ i.value.virtual_ipaddress }}
+    }
+    track_script {
+        nginx_status
     }
 }
 
