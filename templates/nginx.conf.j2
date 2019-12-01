@@ -57,9 +57,25 @@ http {
 
 {% for i in minio.tenants|dict2items %}
         location /{{ i.value.name }}/ {
-        proxy_pass http://{{ i.value.name }};
+            proxy_pass http://{{ i.value.name }};
         }
 
 {% endfor %}
     }
+
+    server {
+        listen {{ nginx.status_socket }};
+        server_name status.localhost;
+
+        {% for i in nginx.status_allow_from %}
+        allow {{ i }};
+        {% endfor %}
+        deny all;
+
+        location = /status {
+            stub_status;
+        }
+    }
+
+
 }
