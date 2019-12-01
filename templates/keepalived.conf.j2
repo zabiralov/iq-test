@@ -5,12 +5,19 @@ global_defs {
     vrrp_iptables
     vrrp_no_swap
     checker_no_swap
-
 }
-
 
 {% for i in keepalived.vrrp_instances|dict2items %}
 vrrp_instance {{ i.value.name }} {
+    interface {{ i.value.interface }}
+    {% if i.value.name == keepalived_host.vrrp_instances.a.name %}
+priority {{ keepalived_host.vrrp_instances.a.priority }}
+    {% elif i.value.name == keepalived_host.vrrp_instances.b.name %}
+priority {{ keepalived_host.vrrp_instances.b.priority }}
+    {% elif i.value.name == keepalived_host.vrrp_instances.c.name %}
+priority {{ keepalived_host.vrrp_instances.c.priority }}
+    {% endif -%}
+
     virtual_router_id {{ i.value.virtual_router_id }}
     authentication {
         auth_type PASS
@@ -19,6 +26,6 @@ vrrp_instance {{ i.value.name }} {
     virtual_ipaddress {
         {{ i.value.virtual_ipaddress }}
     }
-
 }
+
 {% endfor %}

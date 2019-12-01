@@ -9,7 +9,7 @@
     owner: root
     group: root
     mode: '0640'
-
+  notify: "restart keepalived"
 
 
 - name: generate nginx config
@@ -19,11 +19,4 @@
     owner: root
     group: root
     mode: '0640'
-
-
-- name: enable and restart nginx
-  systemd:
-    name: nginx
-    state: restarted
-    enabled: yes
-    daemon_reload: yes
+  notify: "restart nginx"

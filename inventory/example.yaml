@@ -49,19 +49,57 @@ lb:
           virtual_router_id: 31
           virtual_ipaddress: 192.168.150.31
           auth_pass: qwe123
+          interface: enp0s8
         b:
           name: b
           virtual_router_id: 32
           virtual_ipaddress: 192.168.150.32
           auth_pass: asd123
+          interface: enp0s8
         c:
           name: c
           virtual_router_id: 33
           virtual_ipaddress: 192.168.150.33
           auth_pass: zxc123
+          interface: enp0s8
 
 
   hosts:
     192.168.150.21:
+      keepalived_host:
+        vrrp_instances:
+          a:
+            name: a
+            priority: 150
+          b:
+            name: b
+            priority: 100
+          c:
+            name: c
+            priority: 50
+
     192.168.150.22:
+      keepalived_host:
+        vrrp_instances:
+          a:
+            name: a
+            priority: 100
+          b:
+            name: b
+            priority: 150
+          c:
+            name: c
+            priority: 100
+
     192.168.150.23:
+      keepalived_host:
+        vrrp_instances:
+          a:
+            name: a
+            priority: 50
+          b:
+            name: b
+            priority: 50
+          c:
+            name: c
+            priority: 150
