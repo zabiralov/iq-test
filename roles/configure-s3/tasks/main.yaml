@@ -11,6 +11,7 @@
     group: root
     mode: '0640'
   with_dict: "{{ minio.tenants }}"
+  notify: "restart minio"
 
 
 - name: generate tenant service file
@@ -21,12 +22,4 @@
     group: root
     mode: '0640'
   with_dict: "{{ minio.tenants }}"
-
-
-- name: enable and restart minio tenats
-  systemd:
-    name: "minio-{{ item.value.name }}"
-    state: restarted
-    enabled: "{{ item.value.enabled }}"
-    daemon_reload: yes
-  with_dict: "{{ minio.tenants }}"
+  notify: "restart minio"

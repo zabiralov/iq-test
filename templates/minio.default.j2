@@ -1,4 +1,4 @@
 # {{ ansible_managed }}
 
-MINIO_OPTS="--address 0.0.0.0:{{ item.value.port }}"
+MINIO_OPTS="--config-dir {{ minio.server.confdir }} --address 0.0.0.0:{{ item.value.port }}"
 MINIO_VOLUMES="{{ item.value.datadir }}"

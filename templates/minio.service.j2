@@ -5,15 +5,15 @@ Description             = MinIO
 Documentation           = https://docs.min.io
 Wants                   = network-online.target
 After                   = network-online.target
-AssertFileIsExecutable  = {{ minio.binary }}
+AssertFileIsExecutable  = {{ minio.server.binary }}
 
 [Service]
-WorkingDirectory        = {{ minio.workdir }}
-User                    = {{ minio.user }}
-Group                   = {{ minio.user }}
+WorkingDirectory        = {{ minio.server.workdir }}
+User                    = {{ minio.server.user }}
+Group                   = {{ minio.server.user }}
 EnvironmentFile         = /etc/default/minio-{{ item.value.name }}
 
-ExecStart               = {{ minio.binary }} server $MINIO_OPTS $MINIO_VOLUMES
+ExecStart               = {{ minio.server.binary }} server $MINIO_OPTS $MINIO_VOLUMES
 Restart                 = always
 LimitNOFILE             = 65536
 TimeoutStopSec          = infinity

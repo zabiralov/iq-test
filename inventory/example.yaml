@@ -8,11 +8,17 @@ all:
       - 9001
     minio:
       domain: "minio.example.com"
-      url: "https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2019-10-12T01-39-57Z"
-      sum: "sha256:42afc5da93e28341fd11a6491b57800fbfc53210ad156a2330afb09c9d71644f"
-      binary: /usr/local/bin/minio
-      workdir: /var/lib/minio
-      user: minio
+      server:
+        url: "https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2019-10-12T01-39-57Z"
+        sum: "sha256:42afc5da93e28341fd11a6491b57800fbfc53210ad156a2330afb09c9d71644f"
+        binary: /usr/local/bin/minio_server
+        workdir: /var/lib/minio
+        confdir: /etc/minio
+        user: minio
+      client:
+        url: "https://dl.min.io/client/mc/release/linux-amd64/mc.RELEASE.2019-10-09T22-54-57Z"
+        sum: "sha256:e32d5ca6ec9ddcb5d4a28c1a00b78e76513883f2b0e8637435c5c0a42dc8697b"
+        binary: /usr/local/bin/minio_client
       tenants:
         one:
           name: one

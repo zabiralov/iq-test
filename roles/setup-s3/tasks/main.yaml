@@ -5,34 +5,58 @@
 
 - name: create user for running minio process
   user:
-    name: "{{ minio.user }}"
+    name: "{{ minio.server.user }}"
     comment: Minio User
     shell: /sbin/nologin
-    home: "{{ minio.workdir }}"
+    home: "{{ minio.server.workdir }}"
     system: yes
     create_home: yes
 
 
-- name: download minio binary
-  get_url:
-    url: "{{ minio.url }}"
-    dest: "{{ minio.binary }}"
-    checksum: "{{ minio.sum }}"
-
-
-- name: set file permissions for minio binary
+- name: create minio server confdir
   file:
-    dest: "{{ minio.binary }}"
-    owner: "{{ minio.user }}"
-    group: "{{ minio.user }}"
+    dest: "{{ minio.server.confdir }}"
+    owner: "{{ minio.server.user }}"
+    group: "{{ minio.server.user }}"
+    mode: '0750'
+    state: directory
+
+
+- name: download minio server binary
+  get_url:
+    url: "{{ minio.server.url }}"
+    dest: "{{ minio.server.binary }}"
+    checksum: "{{ minio.server.sum }}"
+
+
+- name: set file permissions for minio server binary
+  file:
+    dest: "{{ minio.server.binary }}"
+    owner: root
+    group: root
+    mode: '0755'
+
+
+- name: download minio client binary
+  get_url:
+    url: "{{ minio.client.url }}"
+    dest: "{{ minio.client.binary }}"
+    checksum: "{{ minio.client.sum }}"
+
+
+- name: set file permissions for minio client binary
+  file:
+    dest: "{{ minio.client.binary }}"
+    owner: root
+    group: root
     mode: '0755'
 
 
 - name: create data directories
   file:
     dest: "{{ item.value.datadir }}"
-    owner: "{{ minio.user }}"
-    group: "{{ minio.user }}"
+    owner: "{{ minio.server.user }}"
+    group: "{{ minio.server.user }}"
     mode: '0750'
     state: directory
   with_dict: "{{ minio.tenants }}"
