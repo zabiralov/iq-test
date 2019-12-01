@@ -1,0 +1,51 @@
+---
+
+- hosts: localhost,
+  become: no
+  gather_facts: no
+  connection: local
+
+  tasks:
+
+  - name: download minio client binary
+    get_url:
+      url: "{{ minio.client.url }}"
+      dest: "./miniocli.bin"
+      checksum: "{{ minio.client.sum }}"
+      mode: '0555'
+
+
+  - name: add tenants to minio client configuration
+    shell: >-
+      ./miniocli.bin config host add tenant_{{ item.value.name }} \
+        http://{{ groups.lb.0 }}:{{ item.value.port }}/ \
+        {{ item.value.access_key }} {{ item.value.secret_key }}
+    with_dict: "{{ minio.tenants }}"
+
+
+  - name: add writeonly users
+    shell: >-
+      ./miniocli.bin admin user add tenant_{{ item.value.name }} \
+        {{ item.value.writeuser }} {{ item.value.writepass }}
+    with_dict: "{{ minio.tenants }}"
+
+
+  - name: add readonly users
+    shell: >-
+      ./miniocli.bin admin user add tenant_{{ item.value.name }} \
+        {{ item.value.readuser }} {{ item.value.readpass }}
+    with_dict: "{{ minio.tenants }}"
+
+
+  - name: set policy for writeonly users
+    shell: >-
+      ./miniocli.bin admin policy set tenant_{{ item.value.name }} \
+        writeonly user={{ item.value.writeuser }}
+    with_dict: "{{ minio.tenants }}"
+
+
+  - name: set policy for readonly users
+    shell: >-
+      ./miniocli.bin admin policy set tenant_{{ item.value.name }} \
+        readonly user={{ item.value.readuser }}
+    with_dict: "{{ minio.tenants }}"

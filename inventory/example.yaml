@@ -33,6 +33,10 @@ all:
           enabled: yes
           access_key: PuX9demtWb3
           secret_key: wHgrszE9iEj
+          readuser: download
+          readpass: NrPjtRg3dTH
+          writeuser: upload
+          writepass: tCJJ7muRzvE
         two:
           name: two
           port: 9001
@@ -41,6 +45,11 @@ all:
           enabled: yes
           access_key: EwNdTteymL7
           secret_key: dmh3sUf4qbN
+          readuser: download
+          readpass: PvJK7TNVoxe
+          writeuser: upload
+          writepass: HJuxwuqK7fr
+
 
 s3:
   hosts:

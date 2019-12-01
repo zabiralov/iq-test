@@ -27,11 +27,6 @@
     url: "{{ minio.server.url }}"
     dest: "{{ minio.server.binary }}"
     checksum: "{{ minio.server.sum }}"
-
-
-- name: set file permissions for minio server binary
-  file:
-    dest: "{{ minio.server.binary }}"
     owner: root
     group: root
     mode: '0755'
@@ -42,11 +37,6 @@
     url: "{{ minio.client.url }}"
     dest: "{{ minio.client.binary }}"
     checksum: "{{ minio.client.sum }}"
-
-
-- name: set file permissions for minio client binary
-  file:
-    dest: "{{ minio.client.binary }}"
     owner: root
     group: root
     mode: '0755'
