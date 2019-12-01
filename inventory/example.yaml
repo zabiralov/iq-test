@@ -8,6 +8,9 @@ all:
       - 9001
     minio:
       domain: "minio.example.com"
+      network_prefix: "192.168.150.10"
+      first_host: 1
+      last_host: 6
       server:
         url: "https://dl.min.io/server/minio/release/linux-amd64/minio.RELEASE.2019-10-12T01-39-57Z"
         sum: "sha256:42afc5da93e28341fd11a6491b57800fbfc53210ad156a2330afb09c9d71644f"
@@ -26,21 +29,25 @@ all:
           datadir: /srv/minio/one
           config: "/etc/default/minio-one"
           enabled: yes
+          access_key: PuX9demtWb3
+          secret_key: wHgrszE9iEj
         two:
           name: two
           port: 9001
           datadir: /srv/minio/two
           config: "/etc/default/minio-two"
           enabled: yes
+          access_key: EwNdTteymL7
+          secret_key: dmh3sUf4qbN
 
 s3:
   hosts:
-    192.168.150.11:
-    192.168.150.12:
-    192.168.150.13:
-    192.168.150.14:
-    192.168.150.15:
-    192.168.150.16:
+    192.168.150.101:
+    192.168.150.102:
+    192.168.150.103:
+    192.168.150.104:
+    192.168.150.105:
+    192.168.150.106:
 
 lb:
   vars:
@@ -76,7 +83,7 @@ lb:
 
 
   hosts:
-    192.168.150.21:
+    192.168.150.201:
       keepalived_host:
         vrrp_instances:
           a:
@@ -89,7 +96,7 @@ lb:
             name: c
             priority: 50
 
-    192.168.150.22:
+    192.168.150.202:
       keepalived_host:
         vrrp_instances:
           a:
@@ -102,7 +109,7 @@ lb:
             name: c
             priority: 100
 
-    192.168.150.23:
+    192.168.150.203:
       keepalived_host:
         vrrp_instances:
           a:

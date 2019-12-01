@@ -1,4 +1,6 @@
 # {{ ansible_managed }}
 
-MINIO_OPTS="--config-dir {{ minio.server.confdir }} --address 0.0.0.0:{{ item.value.port }}"
-MINIO_VOLUMES="{{ item.value.datadir }}"
+MINIO_ACCESS_KEY="{{ item.value.access_key }}"
+MINIO_SECRET_KEY="{{ item.value.secret_key }}"
+
+MINIO_OPTS="--address 0.0.0.0:{{ item.value.port }} http://{{ minio.network_prefix }}{% raw %}{{% endraw %}{{ minio.first_host }}...{{ minio.last_host }}{% raw %}}{% endraw %}{{ item.value.datadir }}-{% raw %}{{% endraw %}{{ minio.first_host }}...{{ minio.last_host }}{% raw %}}{% endraw %}"

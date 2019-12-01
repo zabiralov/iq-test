@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+#set -x
+
+declare -i FIRST="{{ minio.first_host }}"
+declare -ri LAST="{{ minio.last_host }}"
+declare -r  OWNER="{{ minio.server.user }}"
+declare -r  MODE="0750"
+declare -i COUNTER
+
+{% for i in minio.tenants|dict2items %}
+
+COUNTER=$FIRST
+
+while [[ $COUNTER -le $LAST ]]; do
+  mkdir -p {{ i.value.datadir }}-$COUNTER
+  chown $OWNER:$OWNER {{ i.value.datadir }}-$COUNTER
+  chmod $MODE {{ i.value.datadir }}-$COUNTER
+  let COUNTER++
+done
+
+{% endfor %}

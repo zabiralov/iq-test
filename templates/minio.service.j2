@@ -13,7 +13,7 @@ User                    = {{ minio.server.user }}
 Group                   = {{ minio.server.user }}
 EnvironmentFile         = /etc/default/minio-{{ item.value.name }}
 
-ExecStart               = {{ minio.server.binary }} server $MINIO_OPTS $MINIO_VOLUMES
+ExecStart               = {{ minio.server.binary }} server $MINIO_OPTS
 Restart                 = always
 LimitNOFILE             = 65536
 TimeoutStopSec          = infinity

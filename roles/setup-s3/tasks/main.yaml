@@ -52,11 +52,20 @@
     mode: '0755'
 
 
-- name: create data directories
-  file:
-    dest: "{{ item.value.datadir }}"
-    owner: "{{ minio.server.user }}"
-    group: "{{ minio.server.user }}"
+- name: generate mkdir script
+  template:
+    dest: /tmp/minio_mkdir.sh
+    src: minio_mkdir.sh.j2
+    owner: root
+    group: root
     mode: '0750'
-    state: directory
-  with_dict: "{{ minio.tenants }}"
+
+
+- name: create datadirs via script
+  command: /tmp/minio_mkdir.sh
+
+
+- name: remove mkdir script
+  file:
+    name: /tmp/minio_mkdir.sh
+    state: absent
