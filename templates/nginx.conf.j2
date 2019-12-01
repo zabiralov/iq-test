@@ -34,9 +34,9 @@ http {
 
 {% endfor %}
 
+{% for i in minio.tenants|dict2items %}
     server {
 
-{% for i in minio.tenants|dict2items %}
         listen 0.0.0.0:{{ i.value.port }};
 
         server_name {{ minio.domain }};
@@ -55,9 +55,10 @@ http {
         location / {
             proxy_pass http://{{ i.value.name }};
         }
+    }
 
 {% endfor %}
-    }
+
 
     server {
         listen {{ nginx.status_socket }};
