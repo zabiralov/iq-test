@@ -1,0 +1,24 @@
+# {{ ansible_managed }}
+
+global_defs {
+    vrrp_version 2
+    vrrp_iptables
+    vrrp_no_swap
+    checker_no_swap
+
+}
+
+
+{% for i in keepalived.vrrp_instances|dict2items %}
+vrrp_instance {{ i.value.name }} {
+    virtual_router_id {{ i.value.virtual_router_id }}
+    authentication {
+        auth_type PASS
+        auth_pass {{ i.value.auth_pass }}
+    }
+    virtual_ipaddress {
+        {{ i.value.virtual_ipaddress }}
+    }
+
+}
+{% endfor %}

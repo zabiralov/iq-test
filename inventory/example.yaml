@@ -42,6 +42,25 @@ lb:
       status_socket: "127.0.0.1:88"
       status_allow_from:
         - "127.0.0.1"
+    keepalived:
+      vrrp_instances:
+        a:
+          name: a
+          virtual_router_id: 31
+          virtual_ipaddress: 192.168.150.31
+          auth_pass: qwe123
+        b:
+          name: b
+          virtual_router_id: 32
+          virtual_ipaddress: 192.168.150.32
+          auth_pass: asd123
+        c:
+          name: c
+          virtual_router_id: 33
+          virtual_ipaddress: 192.168.150.33
+          auth_pass: zxc123
+
+
   hosts:
     192.168.150.21:
     192.168.150.22:
