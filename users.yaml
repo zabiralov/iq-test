@@ -49,3 +49,24 @@
       ./miniocli.bin admin policy set tenant_{{ item.value.name }} \
         readonly user={{ item.value.readuser }}
     with_dict: "{{ minio.tenants }}"
+
+
+  - name: install minio python module
+    pip:
+      name: minio
+      extra_args: --user
+      executable: /usr/bin/pip3
+
+
+  - name: generate upload script
+    template:
+      dest: "./upload.py"
+      src: "templates/upload.py.j2"
+      mode: "0755"
+
+
+  - name: generate download script
+    template:
+      dest: "./download.py"
+      src: "templates/download.py.j2"
+      mode: "0755"

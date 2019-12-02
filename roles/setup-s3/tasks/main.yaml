@@ -13,15 +13,6 @@
     create_home: yes
 
 
-- name: create minio server confdir
-  file:
-    dest: "{{ minio.server.confdir }}"
-    owner: "{{ minio.server.user }}"
-    group: "{{ minio.server.user }}"
-    mode: '0750'
-    state: directory
-
-
 - name: download minio server binary
   get_url:
     url: "{{ minio.server.url }}"

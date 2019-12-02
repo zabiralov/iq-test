@@ -5,9 +5,9 @@
 from minio import Minio
 from minio.error import ResponseError
 
-downloader = Minio('192.168.150.201:9001',
-                 access_key='download',
-                 secret_key='PvJK7TNVoxe',
+downloader = Minio('{{ groups.lb.0 }}:{{ minio.tenants.two.port }}',
+                 access_key='{{ minio.tenants.two.readuser }}',
+                 secret_key='{{ minio.tenants.two.readpass }}',
                  secure=False)
 
 try:

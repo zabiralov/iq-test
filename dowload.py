@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# {{ ansible_managed }}
+# mod with ansible by azabiralov from azabiralov.dellin.local
 
 from minio import Minio
 from minio.error import ResponseError

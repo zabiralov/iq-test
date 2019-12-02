@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+# {{ ansible_managed }}
+
+from minio import Minio
+from minio.error import ResponseError
+
+uploader = Minio('{{ groups.lb.0 }}:{{ minio.tenants.two.port }}',
+                 access_key='{{ minio.tenants.two.access_key }}',
+                 secret_key='{{ minio.tenants.two.secret_key }}',
+                 secure=False)
+
+
+try:
+       uploader.make_bucket("picture", location="us-east-1")
+except BucketAlreadyOwnedByYou as err:
+       pass
+except BucketAlreadyExists as err:
+       pass
+except ResponseError as err:
+       raise
+
+   
+try:
+       uploader.fput_object('picture', 'bad.jpg', './bad.jpg')
+except ResponseError as err:
+       print(err)

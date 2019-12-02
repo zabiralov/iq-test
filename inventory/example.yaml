@@ -3,9 +3,6 @@
 all:
   vars:
     ansible_user: vagrant
-    ports:
-      - 9000
-      - 9001
     minio:
       domain: "minio.example.com"
       network_prefix: "192.168.150.10"
